@@ -1,15 +1,19 @@
-import
-{ createElement as e } from 'react';
+
+
+import { Product } from './components/Product';
+import {useProducts} from './hooks/products'
 
 
 function App() {
-  // return (
-  //   <h1>Hello React</h1>
-  // )
-  return e('div', { className: 'container' }, [
-    e('h1', { className: 'font-bold' }, 'test JSX'),
-    e ('button',{className: ''}, 'Click me!!!')
-  ])
+  const {loading,products,error }= useProducts()
+  return (
+    
+    <div className='container mx-auto max-w-2xl pt-5'>
+    {loading && <p className='text-center'>Loading...</p>}
+      {error && <p className='text-center text-red-600'>{ error}</p>}
+      {products.map(product => <Product product={product} key={product.id } />)}
+  </div>
+)
 }
 
 export default App;
